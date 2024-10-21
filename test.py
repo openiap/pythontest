@@ -10,9 +10,27 @@ if __name__ == "__main__":
     try:
         # client.enable_tracing("openiap=trace", "new")
         client.enable_tracing("openiap=info", "")
+        client.info("Connecting to OpenIAP")
         client.connect()
+
+        eventcounter = [0]  
+        def onclientevent(result, counter):
+            eventcounter[0] += 1
+            event = result["event"]
+            reason = result["reason"]
+            print(f"Client event #{counter} Received {result} event: {reason}")
+
+        eventid = client.on_client_event(callback=onclientevent)
+        print("Client event, registered with id: ", eventid)
         signin_result = client.signin()
         print(signin_result)
+
+        # # for x in range(1, 10):
+        # #     client.query(collectionname="entities", query="{}", projection="{\"name\": 1}", orderby="", queryas="", explain=False, skip=0, top=0)
+
+
+        print("Turning off client event, id: ", eventid)
+        client.off_client_event(eventid)
 
         files = []
         if(os.path.exists("testfile.csv")):
@@ -46,6 +64,14 @@ if __name__ == "__main__":
         client.update_workitem(workitem, files)
         print(workitem)
         client.delete_workitem(workitem["id"])
+
+        files = []
+        workitem = client.push_workitem( name="python without file", wiq="rustqueue", payload="{}")
+        print(workitem)
+        workitem = client.pop_workitem( wiq="rustqueue")
+        workitem["state"] = "successful"
+        client.update_workitem(workitem, files)
+
 
         query_result = client.query(collectionname="entities", query="{}", projection="{\"name\": 1}", orderby="", queryas="", explain=False, skip=0, top=0)
         print(query_result)
@@ -152,4 +178,7 @@ if __name__ == "__main__":
 
     except ClientError as e:
         print(f"An error occurred: {e}")
+    print("*********************************")
+    print("done, free client")
+    print("*********************************")
     client.free()
