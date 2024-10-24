@@ -32,6 +32,17 @@ if __name__ == "__main__":
         print("Turning off client event, id: ", eventid)
         client.off_client_event(eventid)
 
+
+        collections = client.list_collections()
+        print(collections)
+
+        client.create_collection("python_testcol")
+        insert_one_result = client.insert_one(collectionname="python_testcol", item="{\"name\": \"test from python\", \"_type\": \"test\"}")
+
+        # client.create_collection("python_testcol", timeseries=(
+
+        client.drop_collection("python_testcol")
+
         files = []
         if(os.path.exists("testfile.csv")):
             files.append("testfile.csv")
@@ -176,6 +187,10 @@ if __name__ == "__main__":
         unregister_queue =  client.unregister_queue(register_exchange_result)
         print(unregister_queue)
 
+        print("Keep alive test")
+        while True:
+            time.sleep(1)
+            
     except ClientError as e:
         print(f"An error occurred: {e}")
     print("*********************************")
