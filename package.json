@@ -1,0 +1,11 @@
+{
+    "name": "pythontest",
+    "version": "0.0.7",
+    "description": "Example agent, please change",
+    "main": "cli.py",
+    "openiap": {
+        "daemon": true,
+        "chromium": false,
+        "language": "python"
+    }
+}

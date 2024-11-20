@@ -41,7 +41,18 @@ def start_cpu_load(num_iters, available_cores, iter_per_core):
             thread.start()
         for thread in threads:
             thread.join()
-
+def st_func(client):
+    print("Starting pop workitem loop")
+    i = 0
+    while True:
+        try:
+            client.pop_workitem(wiq="q2")
+            i += 1
+            if i % 100 == 0:
+                print(f"Popped 500 workitem {i}")
+        except ClientError as e:
+            print(f"Failed to pop workitem: {e}")
+    # print("Loop complete")
 async def main():
     client = Client()
     client.enable_tracing("openiap=info", "")
@@ -56,10 +67,9 @@ async def main():
 
     print("? for help")
     sthandle = None
+    input_command = "st"
 
     while True:
-        input_command = await keyboard_input()
-
         if input_command == "quit":
             break
         elif input_command == "?":
@@ -80,6 +90,15 @@ async def main():
             r: Register queue
             m: Queue message
             """)
+        elif input_command == "st":
+            try:
+                
+                # create thread and inside it run a loop calling pop_workitem over and over
+                sthandle = threading.Thread(target=st_func, kwargs={"client": client})
+                sthandle.start()
+
+            except ClientError as e:
+                print(f"Failed to start trace: {e}")
         elif input_command == "q":
             try:
                 query_result = client.query(collectionname="entities", query="{}", projection="{\"name\":1}")
@@ -170,6 +189,8 @@ async def main():
             iter_per_core = num_calcs // available_cores
             num_iters = 5000
             threading.Thread(target=start_cpu_load, args=(num_iters, available_cores, iter_per_core)).start()
+
+        input_command = await keyboard_input()
 
     print("*********************************")
     print("done, free client")
