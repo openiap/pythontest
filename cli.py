@@ -67,7 +67,11 @@ async def main():
 
     print("? for help")
     sthandle = None
-    input_command = "st"
+    input_command = ""
+    # Simple check to see if we are running inside a container, then run the st_func
+    if(os.getenv("oidc_config") != None and os.getenv("oidc_config") != ""):
+        input_command = "st"
+
 
     while True:
         if input_command == "quit":

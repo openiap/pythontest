@@ -1,7 +1,7 @@
 {
     "name": "pythontest",
-    "version": "0.0.7",
-    "description": "Example agent, please change",
+    "version": "0.0.8",
+    "description": "Basic python example showing how to call different commands",
     "main": "cli.py",
     "openiap": {
         "daemon": true,
