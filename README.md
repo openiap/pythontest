@@ -16,7 +16,7 @@ To run using default python installation, use the following commands
 ```bash
 pip uninstall openiap-edge
 python -m pip cache purge
-pip install openiap-edge==0.0.21
+pip install openiap-edge==0.0.24
 python cli.py 
 ```
 github repository:
