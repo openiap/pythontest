@@ -4,6 +4,14 @@ import time
 def onmessage(event, counter):
     data = event["data"]
     print(f"{counter} Received event: {json.dumps(event, indent=2)}")
+    workitem = client.pop_workitem(queuename="testq")
+    print("workitem", workitem)
+    if workitem:
+        print("workitem", workitem)
+        workitem["state"] = "successfull"
+        client.update_workitem(workitem)
+    else:
+        print("no workitem")
 
 def onclientevent(result, counter):
     print("client event", result)

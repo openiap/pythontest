@@ -16,7 +16,14 @@
             "program": "test.py",
             "console": "integratedTerminal",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "name": "Python: Run queuetest.py",
+            "type": "python",
+            "request": "launch",
+            "program": "queuetest.py",
+            "console": "integratedTerminal",
+            "envFile": "${workspaceFolder}/.env"
         }
-
     ]
 }
