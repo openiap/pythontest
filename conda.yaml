@@ -6,4 +6,4 @@ dependencies:
     - python
     - pip
     - pip:
-      - openiap-edge==0.0.24
+      - openiap-edge==0.0.26
