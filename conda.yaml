@@ -1,9 +1,8 @@
 name: 
 channels:
     - conda-forge
-    - defaults
 dependencies:
     - python
     - pip
     - pip:
-      - openiap-edge==0.0.26
+      - openiap-edge==0.0.28
