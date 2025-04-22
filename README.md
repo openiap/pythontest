@@ -10,13 +10,14 @@ Setup environment with micromamba and run using the following commands
 micromamba create -y -n pythontest -f conda.yaml
 # or
 micromamba install -y -n pythontest -f conda.yaml
+# or just using pip
 python cli.py 
 ```
 To run using default python installation, use the following commands
 ```bash
 pip uninstall openiap-edge
 python -m pip cache purge
-pip install openiap-edge==0.0.26
+pip install -t . -r  requirements.txt
 python cli.py 
 ```
 github repository:
