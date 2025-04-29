@@ -10,8 +10,6 @@ Setup environment with micromamba and run using the following commands
 micromamba create -y -n pythontest -f conda.yaml
 # or
 micromamba install -y -n pythontest -f conda.yaml
-# or just using pip
-python cli.py 
 ```
 To run using default python installation, use the following commands
 ```bash

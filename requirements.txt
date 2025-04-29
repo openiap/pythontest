@@ -1,1 +1,1 @@
-openiap-edge==0.0.35
+openiap-edge==0.0.36
